@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kacheri/pages/HomePage.dart';
 import 'package:kacheri/pages/SongsPage.dart';
 
 void main() async => runApp(MyApp());
@@ -11,8 +12,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SongsPage(title: 'Kacheri'),
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => HomePage(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/all-songs': (context) => SongsPage(),
+      },
     );
   }
 }
-

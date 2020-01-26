@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kacheri/songs.dart';
-import '../repository.dart';
+import 'package:kacheri/models/songs.dart';
+import 'package:kacheri/services/repository.dart';
 
 class SongsPage extends StatefulWidget {
-  SongsPage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  SongsPage({Key key}) : super(key: key);
 
   @override
   _SongsPageState createState() => _SongsPageState();
@@ -33,22 +31,18 @@ class _SongsPageState extends State<SongsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("All Songs"),
       ),
       body: Container(
           child: ListView.builder(
               itemCount: this.songs.length,
               itemBuilder: (BuildContext ctxt, int index) {
                 return ListTile(
+                  // onTap: ,
                   title: Text(this.songs[index].name),
                   subtitle: Text(this.songs[index].author),
                 );
               })),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Increment',
-        child: Icon(Icons.filter_list),
-        onPressed: () {},
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

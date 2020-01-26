@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:kacheri/songs.dart';
+import 'package:kacheri/models/songs.dart';
 import 'package:sqflite/sqflite.dart';
 
 final String tableSong = 'songs';
