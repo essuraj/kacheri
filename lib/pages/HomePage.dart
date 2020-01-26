@@ -31,11 +31,16 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                          padding: EdgeInsets.all(16), child: TextFormField()),
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {},
-                      ),
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            "Kacheri",
+                            textScaleFactor: 4,
+                            style: TextStyle(fontWeight: FontWeight.w100),
+                          )),
+                      // IconButton(
+                      //   icon: Icon(Icons.search),
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                 ),

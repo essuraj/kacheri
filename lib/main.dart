@@ -10,12 +10,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Kacheri',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,primaryColorDark:  Colors.deepOrangeAccent
       ),
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => HomePage(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/all-songs': (context) => SongsPage(),
       },
     );
