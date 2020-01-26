@@ -15,35 +15,42 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
+              alignment: Alignment.bottomLeft,
               image: AssetImage("assets/sow-mandala-part.jpg"),
               fit: BoxFit.cover,
             ),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Card(
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  width: MediaQuery.of(context).size.width - 16,
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            "Kacheri",
-                            textScaleFactor: 4,
-                            style: TextStyle(fontWeight: FontWeight.w100),
-                          )),
-                      // IconButton(
-                      //   icon: Icon(Icons.search),
-                      //   onPressed: () {},
-                      // ),
-                    ],
-                  ),
+              SizedBox(
+                height: 32,
+              ),
+              Container(
+                // padding: EdgeInsets.all(16),
+                // width: MediaQuery.of(context).size.width - 16,
+                alignment: Alignment.topLeft,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          "Kacheri",
+                          textScaleFactor: 4,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              color: Colors.deepOrange),
+                        )),
+                    // IconButton(
+                    //   icon: Icon(Icons.search),
+                    //   onPressed: () {},
+                    // ),
+                  ],
                 ),
+              ),
+              SizedBox(
+                height: 64,
               ),
               Card(
                 child: InkWell(
@@ -58,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.all(8),
                           child: Icon(
                             Icons.library_music,
+                            color: Colors.deepOrange,
                             size: 64,
                           ),
                         ),
@@ -82,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(8),
                             child: Icon(
                               Icons.people_outline,
+                              color: Colors.deepOrange,
                               size: 64,
                             ),
                           ),
@@ -101,6 +110,7 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.all(8),
                             child: Icon(
                               Icons.music_note,
+                              color: Colors.deepOrange,
                               size: 64,
                             ),
                           ),
