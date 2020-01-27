@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_widgets/infinite_widgets.dart';
 import 'package:kacheri/models/songs.dart';
+import 'package:kacheri/pages/LyricPage.dart';
 import 'package:kacheri/services/repository.dart';
 
 class SongsPage extends StatefulWidget {
@@ -11,19 +13,35 @@ class SongsPage extends StatefulWidget {
 
 class _SongsPageState extends State<SongsPage> {
   List<Song> songs = new List<Song>();
-
+  int songCount = 0;
+  int pageNumber = 0;
+  var db = new SongProvider();
   @override
   void initState() {
     super.initState();
+    // initDB();
     getData();
+    getDataCount();
+  }
+
+  // initDB() async {
+  //   await this.db.open();
+  // }
+
+  getDataCount() async {
+    await this.db.open();
+    var count = await db.getSongsCount();
+    setState(() {
+      this.songCount = count;
+    });
   }
 
   getData() async {
-    var db = new SongProvider();
-    await db.open();
-    var data = await db.getSongs();
+    await this.db.open();
+    var data = await this.db.getSongs(limit: 20, offset: this.pageNumber);
     setState(() {
-      this.songs = data;
+      this.songs.addAll(data);
+      this.pageNumber += 20;
     });
   }
 
@@ -34,15 +52,31 @@ class _SongsPageState extends State<SongsPage> {
         title: Text("All Songs"),
       ),
       body: Container(
-          child: ListView.builder(
+          child: InfiniteListView.separated(
               itemCount: this.songs.length,
+              hasNext: this.songs.length < songCount,
+              nextData: this.getData,
               itemBuilder: (BuildContext ctxt, int index) {
                 return ListTile(
-                  // onTap: ,
-                  title: Text(this.songs[index].name),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LyricPage(song: this.songs[index]),
+                      ),
+                    );
+                  },
+                  title: Text(this.songs[index].name.length == 0
+                      ? "N/A"
+                      : this.songs[index].name),
                   subtitle: Text(this.songs[index].author),
                 );
-              })),
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                    height: 2.0,
+                  ))),
     );
   }
 }

@@ -55,14 +55,17 @@ create table $tableSong (
 
     List<Map<String, dynamic>> dbList =
         await db.query(tableSong, limit: limit, offset: offset);
-    // if (maps.length > 0) {
-    //   return maps.map((s) => Song.fromJson(s));
-    // }
+
     dbList.forEach((itemMap) {
       list.add(Song.fromJson(itemMap));
     });
     return list;
-    // return null;
+  }
+
+  Future<int> getSongsCount() async {
+    int count = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $tableSong'));
+    return count;
   }
   // Future<int> delete(int id) async {
   //   return await db.delete(tableSong, where: '$columnId = ?', whereArgs: [id]);
