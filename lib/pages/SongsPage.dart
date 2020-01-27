@@ -51,32 +51,55 @@ class _SongsPageState extends State<SongsPage> {
       appBar: AppBar(
         title: Text("All Songs"),
       ),
-      body: Container(
-          child: InfiniteListView.separated(
-              itemCount: this.songs.length,
-              hasNext: this.songs.length < songCount,
-              nextData: this.getData,
-              itemBuilder: (BuildContext ctxt, int index) {
-                return ListTile(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            LyricPage(song: this.songs[index]),
-                      ),
+      body: Column(
+        children: <Widget>[
+          Align(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    decoration:
+                        InputDecoration(hintText: 'Search song'),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {},
+                )
+              ],
+            ),
+          )),
+          Expanded(
+              child: InfiniteListView.separated(
+                  itemCount: this.songs.length,
+                  hasNext: this.songs.length < songCount,
+                  nextData: this.getData,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    return ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                LyricPage(song: this.songs[index]),
+                          ),
+                        );
+                      },
+                      leading: Icon(Icons.music_note),
+                      title: Text(this.songs[index].name.length == 0
+                          ? "N/A"
+                          : this.songs[index].name),
+                      subtitle: Text(this.songs[index].author),
                     );
                   },
-                  title: Text(this.songs[index].name.length == 0
-                      ? "N/A"
-                      : this.songs[index].name),
-                  subtitle: Text(this.songs[index].author),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(
-                    height: 2.0,
-                  ))),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(
+                        height: 2.0,
+                      ))),
+        ],
+      ),
     );
   }
 }

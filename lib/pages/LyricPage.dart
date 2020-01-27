@@ -20,9 +20,22 @@ class _LyricPageState extends State<LyricPage> {
         title: Text(widget.song.name.length == 0 ? "N/A" : widget.song.name),
       ),
       body: SafeArea(
-          child: Container(
-        // padding: EdgeInsets.all(8),
-        child: Markdown(data: widget.song.lyric),
+          child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Markdown(
+              data: widget.song.lyric,
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.supervisor_account),
+            title: Text(widget.song.author.toUpperCase()),
+          ),
+          ListTile(
+            leading: Icon(Icons.music_note),
+            title: Text(widget.song.raga.toUpperCase()),
+          ),
+        ],
       )),
     );
   }
