@@ -27,14 +27,14 @@ class _LyricPageState extends State<LyricPage> {
               data: widget.song.lyric,
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.supervisor_account),
-            title: Text(widget.song.author.toUpperCase()),
-          ),
-          ListTile(
-            leading: Icon(Icons.music_note),
-            title: Text(widget.song.raga.toUpperCase()),
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.supervisor_account),
+          //   title: Text(widget.song.author.toUpperCase()),
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.music_note),
+          //   title: Text(widget.song.raga.toUpperCase()),
+          // ),
         ],
       )),
     );

@@ -9,9 +9,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kacheri',
-      theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
+      theme: ThemeData.dark().copyWith(
+
+          // primarySwatch: Colors.orange,
           primaryColorDark: Colors.deepOrangeAccent,
+          appBarTheme: AppBarTheme(elevation: 0),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+          ),
           cardTheme: CardTheme(
             // color: const Color(0xFFffffff).withOpacity(0.6),
 
@@ -22,7 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/all-songs': (context) => SongsPage(),
-        '/all-songs': (context) => SongsPage(),
+        // '/all-songs': (context) => SongsPage(),
       },
     );
   }

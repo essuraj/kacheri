@@ -17,7 +17,8 @@ class _HomePageState extends State<HomePage> {
             image: DecorationImage(
               alignment: Alignment.bottomLeft,
               image: AssetImage("assets/sow-mandala-part.jpg"),
-              fit: BoxFit.cover,
+
+              // fit: BoxFit.cover,
             ),
           ),
           child: Column(

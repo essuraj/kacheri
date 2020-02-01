@@ -64,10 +64,10 @@ class _SongsPageState extends State<SongsPage> {
                         InputDecoration(hintText: 'Search song'),
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {},
-                )
+                // IconButton(
+                //   icon: Icon(Icons.search),
+                //   onPressed: () {},
+                // )
               ],
             ),
           )),
