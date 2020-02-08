@@ -36,10 +36,12 @@ class _SongsPageState extends State<SongsPage> {
     });
   }
 
-  getData() async {
+  getData({String name, int offset = 0}) async {
     await this.db.open();
-    var data = await this.db.getSongs(limit: 20, offset: this.pageNumber);
+    var data =
+        await this.db.getSongs(limit: 20, offset: this.pageNumber, name: name);
     setState(() {
+      name == null ? "" : this.songs.clear();
       this.songs.addAll(data);
       this.pageNumber += 20;
     });
@@ -60,8 +62,11 @@ class _SongsPageState extends State<SongsPage> {
               children: <Widget>[
                 Expanded(
                   child: TextField(
-                    decoration:
-                        InputDecoration(hintText: 'Search song'),
+                    decoration: InputDecoration(hintText: 'Search song'),
+                    onSubmitted: (value) async {
+                      print(value);
+                      await this.getData(name: value, offset: 0);
+                    },
                   ),
                 ),
                 // IconButton(
@@ -75,7 +80,7 @@ class _SongsPageState extends State<SongsPage> {
               child: InfiniteListView.separated(
                   itemCount: this.songs.length,
                   hasNext: this.songs.length < songCount,
-                  nextData: this.getData,
+                  nextData: () async => this.getData(offset: this.pageNumber),
                   itemBuilder: (BuildContext ctxt, int index) {
                     return ListTile(
                       onTap: () {

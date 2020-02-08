@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
 
           // primarySwatch: Colors.orange,
-          primaryColorDark: Colors.deepOrangeAccent,
+          primaryColorDark: Colors.lime,
+          accentColor: Colors.orangeAccent,
           appBarTheme: AppBarTheme(elevation: 0),
           inputDecorationTheme: InputDecorationTheme(
             filled: true,

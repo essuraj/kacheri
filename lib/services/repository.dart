@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 final String tableSong = 'songs';
 final String columnId = 'id';
 final String columnName = 'name';
+final String columnNameLower = 'nameLower';
 final String columnRaga = 'raga';
 final String columnAuthor = 'author';
 final String columnLyric = 'lyric';
@@ -22,6 +23,7 @@ class SongProvider {
 create table $tableSong ( 
   $columnId text primary key, 
   $columnName text not null,
+  $columnNameLower text not null,
   $columnRaga text not null,
   $columnAuthor text not null,
   $columnLyric text not null)
@@ -50,11 +52,17 @@ create table $tableSong (
     return null;
   }
 
-  Future<List<Song>> getSongs({int offset = 0, int limit = 10}) async {
+  Future<List<Song>> getSongs(
+      {int offset = 0, int limit = 10, String name}) async {
     List<Song> list = new List<Song>();
 
-    List<Map<String, dynamic>> dbList =
-        await db.query(tableSong, limit: limit, offset: offset);
+    List<Map<String, dynamic>> dbList = name == null
+        ? await db.query(tableSong, limit: limit, offset: offset)
+        : await db.query(tableSong,
+            limit: limit,
+            offset: offset,
+            where: "$columnNameLower like ?",
+            whereArgs: ['%$name%']);
 
     dbList.forEach((itemMap) {
       list.add(Song.fromJson(itemMap));
