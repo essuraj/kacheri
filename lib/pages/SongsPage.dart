@@ -15,6 +15,7 @@ class _SongsPageState extends State<SongsPage> {
   List<Song> songs = new List<Song>();
   int songCount = 0;
   int pageNumber = 0;
+  String name;
   var db = new SongProvider();
   @override
   void initState() {
@@ -36,15 +37,18 @@ class _SongsPageState extends State<SongsPage> {
     });
   }
 
-  getData({String name, int offset = 0}) async {
+  getData() async {
     await this.db.open();
-    var data =
-        await this.db.getSongs(limit: 20, offset: this.pageNumber, name: name);
-    setState(() {
-      name == null ? "" : this.songs.clear();
-      this.songs.addAll(data);
-      this.pageNumber += 20;
-    });
+    var data = await this
+        .db
+        .getSongs(limit: 20, offset: this.pageNumber, name: this.name);
+    if (data.length > 0) {
+      setState(() {
+        this.name == null ? "" : this.songs.clear();
+        this.songs.addAll(data);
+        this.pageNumber += 20;
+      });
+    }
   }
 
   @override
@@ -65,7 +69,9 @@ class _SongsPageState extends State<SongsPage> {
                     decoration: InputDecoration(hintText: 'Search song'),
                     onSubmitted: (value) async {
                       print(value);
-                      await this.getData(name: value, offset: 0);
+                      this.name = value;
+                      this.pageNumber = 0;
+                      await this.getData();
                     },
                   ),
                 ),
@@ -80,7 +86,7 @@ class _SongsPageState extends State<SongsPage> {
               child: InfiniteListView.separated(
                   itemCount: this.songs.length,
                   hasNext: this.songs.length < songCount,
-                  nextData: () async => this.getData(offset: this.pageNumber),
+                  nextData: () async => this.getData(),
                   itemBuilder: (BuildContext ctxt, int index) {
                     return ListTile(
                       onTap: () {
