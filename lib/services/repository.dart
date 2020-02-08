@@ -55,14 +55,18 @@ create table $tableSong (
   Future<List<Song>> getSongs(
       {int offset = 0, int limit = 10, String name}) async {
     List<Song> list = new List<Song>();
-
-    List<Map<String, dynamic>> dbList = name == null
-        ? await db.query(tableSong, limit: limit, offset: offset)
-        : await db.query(tableSong,
-            limit: limit,
-            offset: offset,
-            where: "$columnNameLower like ?",
-            whereArgs: ['%$name%']);
+    List<Map<String, dynamic>> dbList;
+    if (name != null) {
+      name = name.toLowerCase().trim();
+      dbList = await db.query(tableSong,
+          limit: limit,
+          offset: offset,
+          where: "$columnNameLower like ?",
+          orderBy: columnNameLower,
+          whereArgs: ['%$name%']);
+    } else {
+      dbList = await db.query(tableSong, limit: limit, offset: offset);
+    }
 
     dbList.forEach((itemMap) {
       list.add(Song.fromJson(itemMap));
